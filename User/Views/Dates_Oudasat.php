@@ -156,20 +156,23 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']))
                                                         القداس الذي تم حجزه
                                                     </h5>
                                                     <div class="row">
-                                                        <i class="fa fa-calendar col-6" aria-hidden="true" style="color: #3a283d"> <span
+                                                        <i class="fa fa-calendar col-4" aria-hidden="true" style="color: #3a283d"> <span
                                                                     style="color: #3a283d"><?php echo $row["slot_date"] ?></span></i>
 
-                                                        <i class="fa fa-clock-o col-6" aria-hidden="true" style="color: #3a283d"> <span
-                                                                    style="color: #3a283d"><?php echo $row["slot_time"] ?></span></i>
+                                                        <i class="fa fa-clock-o col-4" aria-hidden="true" style="color: #3a283d"> <span
+                                                                    style="color: #3a283d">من الساعة <?php echo $row["slot_time"] ?></span></i>
+
+                                                        <i class="fa fa-clock-o col-4" aria-hidden="true" style="color: #3a283d"> <span
+                                                                    style="color: #3a283d">  الي الساعة <?php echo $row["slot_time_to"] ?></span></i>
                                                     </div>
                                                     <br>
                                                     <div class="row">
 
-                                                        <i class="fas fa-church col-6" aria-hidden="true" style="color: #3a283d">
+                                                        <i class="fas fa-church col-4" aria-hidden="true" style="color: #3a283d">
                                                             <span style="color: #3a283d"><?php echo $church ?></span></i>
 
-                                                        <i class="fas fa-pray col-6" aria-hidden="true" style="color: #3a283d">
-                                                            <span style="color: #3a283d"><?php echo "ستحضر القداس ".$gender_attended ?></span></i>
+                                                        <i class="fas fa-pray col-4" aria-hidden="true" style="color: #3a283d">
+                                                            <span style="color: #3a283d"><?php echo "ستحضر القداس ". $gender_attended?></span></i>
 
 
                                                     </div>
@@ -211,7 +214,7 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']))
                     <div class="row">
                         <div class="col-12">
                             <?php
-                            $sql = "select  * from slots where slot_date ='$returned_date' order by slot_date , slot_time";
+                            $sql = "select  * from slots where slot_date ='$returned_date' and shown='Y' order by slot_date , slot_time";
                             $result = mysqli_query($connect,$sql);
                             if($result->num_rows > 0)
                             {
@@ -245,19 +248,22 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']))
                                                         القداسات المتاحة
                                                     </h5>
                                                     <div class="row">
-                                                        <i class="fa fa-calendar col-6" aria-hidden="true" style="color: #3a283d">
+                                                        <i class="fa fa-calendar col-4" aria-hidden="true" style="color: #3a283d">
                                                             <span style="color: #3a283d"><?php echo $row["slot_date"] ?></span></i>
 
-                                                        <i class="fa fa-clock-o col-6" aria-hidden="true" style="color: #3a283d">
-                                                            <span style="color: #3a283d"><?php echo $row["slot_time"] ?></span></i>
+                                                        <i class="fa fa-clock-o col-4" aria-hidden="true" style="color: #3a283d">
+                                                            <span style="color: #3a283d"> من الساعة <?php echo $row["slot_time"] ?></span></i>
+
+                                                        <i class="fa fa-clock-o col-4" aria-hidden="true" style="color: #3a283d"> <span
+                                                                    style="color: #3a283d">  الي الساعة <?php echo $row["slot_time_to"] ?></span></i>
                                                     </div>
                                                     <br>
                                                     <div class="row">
 
-                                                        <i class="fas fa-church col-6" aria-hidden="true" style="color: #3a283d">
+                                                        <i class="fas fa-church col-4" aria-hidden="true" style="color: #3a283d">
                                                             <span style="color: #3a283d"><?php echo $church ?></span></i>
 
-                                                        <i class="fas fa-pray col-6" aria-hidden="true" style="color: #3a283d">
+                                                        <i class="fas fa-pray col-4" aria-hidden="true" style="color: #3a283d">
                                                             <span style="color: #3a283d"><?php echo $row["number"] ?></span></i>
                                                     </div>
                                                     <br>
@@ -325,8 +331,13 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']))
 
                                             </div>
                                             <?php
-                                            if( $left != 0 && $today > $next_date && $today > $low_date )
+
+
+
+
+                                            if( $left != 0 && $today >= $next_date && $today > $low_date )
                                             {
+
                                                 if($user_gender == 3)
                                                 {
                                                     if($shamamsa - $mens_remainder_s != 0){
@@ -435,15 +446,32 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']))
                                             }
                                             else
                                             {
-                                                ?>
-                                                <div style="width:50%;margin-left:25%;">
-                                                    <div class="alert alert-danger" >
-                                                        <h5 style="text-align: right;color: #3a283d;text-align:center;">
-                                                            لا يمكنك حجز قداس أخر قبل مرور 30 يوم علي الحجز الحالي
-                                                        </h5>
+//                                                echo $next_date;
+
+                                                if($today <= $low_date || $today < $next_date)
+                                                {
+                                                    ?>
+                                                    <div style="width:50%;margin-left:25%;">
+                                                        <div class="alert alert-danger">
+                                                            <h5 style="text-align: right;color: #3a283d;text-align:center;">
+                                                                لا يمكنك حجز قداس أخر قبل مرور 30 يوم علي الحجز الحالي
+                                                            </h5>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <?php
+                                                    <?php
+                                                }
+                                                else{
+                                                    ?>
+                                                    <div style="width:50%;margin-left:25%;">
+                                                        <div class="alert alert-danger">
+                                                            <h5 style="text-align: right;color: #3a283d;text-align:center;">
+                                                                لقد انتهت الأماكن المتاحة  لحجز هذا القداس
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <?php
+
+                                                }
                                             }
 
 

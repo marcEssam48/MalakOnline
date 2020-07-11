@@ -12,7 +12,7 @@ include '../Models/database.php';
 include 'head.php';
 $db = new database();
 $connect = $db->connects;
-if(isset($_POST["book"])){
+if(isset($_POST["book"])) {
 
     $date = $_POST["odate"];
     $time = $_POST["otime"];
@@ -22,28 +22,45 @@ if(isset($_POST["book"])){
     $men = $_POST["men"];
     $women = $_POST["women"];
     // $priest = $_POST["priest"];
-    $today =  date("Y-m-d");
+    $today = date("Y-m-d");
+    $totime = $_POST["totime"];
+    $shown = $_POST["shown"];
+    $notes = $_POST["notes"];
 
+    $total = $men + $women;
+    $total += $shamas;
 //    echo $date . $time . $church . $audience_number . $priest ;
+    if ($total  == $audience_number) {
+        $sql = "INSERT INTO slots(slot_date,slot_time,slot_time_to,church,number,delivered_date,shamas,men,women,notes,shown) values('$date','$time','$totime','$church',$audience_number,'$today',$shamas,$men,$women,'$notes','$shown')";
+        $result = mysqli_query($connect, $sql);
 
-    $sql = "INSERT INTO slots(slot_date,slot_time,church,number,delivered_date,shamas,men,women) values('$date','$time','$church',$audience_number,'$today',$shamas,$men,$women)";
-    $result = mysqli_query($connect,$sql);
+        if ($result) {
+            ?>
+            <div class="alert alert-success" role="alert">
+                Inserted Successfully
+            </div>
 
-    if($result){
+            <div class="alert alert-primary" role="alert">
+                You will be redirected back in 3 seconds
+            </div>
+            <?php
+            header("refresh:0;url=../Admin/Views/booking_slot.php");
+        } else {
+            echo "Not";
+        }
+
+    }else{
         ?>
-        <div class="alert alert-success" role="alert">
-            Inserted Successfully
+        <div class="alert alert-danger" role="alert">
+            Number of shamamsa + Number of women + Number of men doesn't equal total number you entered
         </div>
 
         <div class="alert alert-primary" role="alert">
             You will be redirected back in 3 seconds
         </div>
         <?php
-        header( "refresh:0;url=../Admin/Views/booking_slot.php" );
+        header("refresh:5;url=../Admin/Views/booking_slot.php");
     }
-    else{
-        echo "Not";
-    }
-
 }
+
 ?>

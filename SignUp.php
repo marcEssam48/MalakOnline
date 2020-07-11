@@ -66,15 +66,24 @@
                     <span class="focus-input100" data-placeholder="&#xf191;"></span>
                 </div>
                 <!--                data-validate="Enter Date Of Birth"-->
+
+                <div style="text-align: center">
+                    <label>تاريخ الميلاد</label>
+                </div>
                 <div class="wrap-input100 validate-input" >
 
 
                     <input class="input100" type="Date" name="DOB" placeholder="تاريخ الميلاد" >
-                    تاريخ الميلاد
+
                     <span class="focus-input100" data-placeholder="&#xf191;"></span>
                 </div>
 
+                <div style="text-align: center">
+                    <label>برجاء إدخال الرقم القومي باللغة الإنجليزية</label>
+                </div>
                 <div class="wrap-input100 validate-input" >
+
+
 
 
                     <input class="input100" type="number" name="nid" placeholder="  الرقم القومي" >

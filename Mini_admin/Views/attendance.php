@@ -116,7 +116,7 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']))
                                                         <a href="TakeAttendance.php?id=<?php echo $row["slot_id"]?>">
 
                                                             <div class="alert alert-info" style="text-align: center">
-                                                                <?php echo $row["slot_date"] ?>
+                                                                <?php echo $row["slot_date"] . " AT " . $row["slot_time"]?>
 
                                                             </div>
                                                         </a>

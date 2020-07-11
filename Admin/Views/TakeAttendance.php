@@ -7,6 +7,14 @@ $db = new database();
 $connect = $db->connects;
 $today = date("Y-m-d");
 $slot_id = $_GET["id"];
+
+$sql_date = "select slot_date , slot_time ,slot_time_to from slots where slot_id = $slot_id";
+$result_date = mysqli_query($connect,$sql_date);
+$row_back = $result_date->fetch_assoc();
+$slot_date = $row_back["slot_date"];
+$slot_time_from = $row_back["slot_time"];
+$slot_time_to = $row_back["slot_time_to"];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,11 +48,11 @@ $slot_id = $_GET["id"];
         <!-- End Navbar -->
         <div class="content">
             <form method="post" action="../../Controller/AttendanceController.php">
-                <div class="row">
+                <div class="row" >
                     <div class="col-12">
                         <div class="card card-stats">
                             <div class="card-body ">
-                                <div class="row">
+                                <div class="row" style="overflow:auto;">
                                     <div class="col-12">
                                         <h5 style="text-align: center">الحضور </h5>
                                     </div>
@@ -53,6 +61,14 @@ $slot_id = $_GET["id"];
                                     $result = mysqli_query($connect,$sql);
                                     ?>
                                     <table class="table" id="tabledata">
+
+                                       <h5 style="text-align:center">
+
+                                          <?php echo "قداس بتاريخ " . $slot_date . " من " . $slot_time_from . " الي " . $slot_time_to;?>
+                                       </h5>
+
+
+
                                         <thead>
                                         <tr>
                                             <th></th>

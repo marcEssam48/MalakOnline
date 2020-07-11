@@ -24,7 +24,9 @@ $result = mysqli_query($connect,$sql);
 $sql_cnt = "DELETE FROM user_slot_count where  id = (SELECT max(id) from user_slot_count where user_id = $user_id)";
 $result_cnt = mysqli_query($connect,$sql_cnt);
 
-
+    $low_date = date("1900-01-01");
+    $sql_update_next = "UPDATE USERS SET next_available_date = '$low_date' where user_id = $user_id";
+    $result_update_next = mysqli_query($connect,$sql_update_next);
 
 
 if($result && $result_cnt)

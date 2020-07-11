@@ -172,7 +172,7 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']))
                                         <td>الحالة</td>
                                     </tr>
                                     <?php
-                                    $sql_available = "SELECT slots.slot_date as slt_date , slots.slot_id as slt_id from slots  order by slots.slot_date  ";
+                                    $sql_available = "SELECT slots.slot_date as slt_date , slots.slot_id as slt_id from slots where shown = 'Y'  order by slots.slot_date  ";
                                     $result_available = mysqli_query($connect,$sql_available);
                                     if($result_available->num_rows > 0)
                                     {
@@ -322,19 +322,22 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']))
                                                         القداس الذي تم حجزه
                                                     </h5>
                                                     <div class="row">
-                                                        <i class="fa fa-calendar col-6" aria-hidden="true" style="color: #3a283d"> <span
+                                                        <i class="fa fa-calendar col-4" aria-hidden="true" style="color: #3a283d"> <span
                                                                     style="color: #3a283d"><?php echo $row["slot_date"] ?></span></i>
 
-                                                        <i class="fa fa-clock-o col-6" aria-hidden="true" style="color: #3a283d"> <span
-                                                                    style="color: #3a283d"><?php echo $row["slot_time"] ?></span></i>
+                                                        <i class="fa fa-clock-o col-4" aria-hidden="true" style="color: #3a283d"> <span
+                                                                    style="color: #3a283d">من الساعة <?php echo $row["slot_time"] ?></span></i>
+
+                                                        <i class="fa fa-clock-o col-4" aria-hidden="true" style="color: #3a283d"> <span
+                                                                    style="color: #3a283d">الي الساعة<?php echo $row["slot_time_to"] ?></span></i>
                                                     </div>
                                                     <br>
                                                     <div class="row">
 
-                                                        <i class="fas fa-church col-6" aria-hidden="true" style="color: #3a283d">
+                                                        <i class="fas fa-church col-4" aria-hidden="true" style="color: #3a283d">
                                                             <span style="color: #3a283d"><?php echo $church ?></span></i>
 
-                                                        <i class="fas fa-pray col-6" aria-hidden="true" style="color: #3a283d">
+                                                        <i class="fas fa-pray col-4" aria-hidden="true" style="color: #3a283d">
                                                             <span style="color: #3a283d"><?php echo "ستحضر القداس ". $gender_attended?></span></i>
 
 
@@ -377,7 +380,7 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']))
                     <div class="row">
 
                         <?php
-                        $sql = "select  DISTINCT slot_date  from slots order by slot_date";
+                        $sql = "select  DISTINCT slot_date  from slots where shown='Y' order by slot_date";
                         $result = mysqli_query($connect,$sql);
                         if($result->num_rows > 0)
                         {

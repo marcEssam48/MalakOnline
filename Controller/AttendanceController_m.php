@@ -15,7 +15,14 @@ $connect = $db->connects;
 $slot = $_POST["slot"];
 $today = date("2020-05-13");
 $lowdate =  date("1900-01-01");
-$thirtyDays = date("Y-m-d", strtotime("+30 days"));
+//$thirtyDays = date("Y-m-d", strtotime("+30 days"));
+
+$slot_date_sql = "select slot_date from slots where slot_id = $slot";
+$result_slot_date = mysqli_query($connect,$slot_date_sql);
+$row_sql_date =  $result_slot_date->fetch_assoc();
+$slot_date = $row_sql_date["slot_date"];
+$thirtyDays = date('Y-m-d', strtotime($slot_date. ' + 30 days'));
+
 if(isset($_POST['attend'])){
 
     if(!empty($_POST['names'])) {

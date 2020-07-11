@@ -21,6 +21,7 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']) && $_SESSION['u
     $connect = $db->connects;
     $oudas_count = 0;
     $user_count = 0;
+    $today = date("Y-m-d");
 
     $sql = "Select count(*) as countU  from users";
     $result = mysqli_query($connect, $sql);
@@ -31,6 +32,22 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']) && $_SESSION['u
     $result_2 = mysqli_query($connect, $sql_2);
     $row_2 = $result_2->fetch_assoc();
     $oudas_count = $row_2["countO"];
+
+
+    $sql_female = "Select count(*) as countf  from users where gender = 2";
+    $result_female = mysqli_query($connect, $sql_female);
+    $row_female = $result_female->fetch_assoc();
+    $female = $row_female["countf"];
+
+    $sql_male = "Select count(*) as countm  from users where gender = 1";
+    $result_male = mysqli_query($connect, $sql_male);
+    $row_male = $result_male->fetch_assoc();
+    $male = $row_male["countm"];
+
+    $sql_sh = "Select count(*) as countsh  from users where gender = 3";
+    $result_sh = mysqli_query($connect, $sql_sh);
+    $row_sh = $result_sh->fetch_assoc();
+    $sh = $row_sh["countsh"];
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -53,6 +70,7 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']) && $_SESSION['u
         <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet"/>
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="../assets/demo/demo.css" rel="stylesheet"/>
+        <!--<script src='https://kit.fontawesome.com/a076d05399.js'></script>-->
     </head>
 
     <body class="">
@@ -71,7 +89,7 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']) && $_SESSION['u
                                 <div class="row">
                                     <div class="col-5 col-md-4">
                                         <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-globe text-warning"></i>
+                                            <i class="fa fa-users text-warning"></i>
                                         </div>
                                     </div>
                                     <div class="col-7 col-md-8">
@@ -162,101 +180,192 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']) && $_SESSION['u
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="card ">
-                            <div class="card-header ">
-                                <h5 class="card-title">Stats</h5>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5 col-md-4">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="fa fa-female text-warning"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-8">
+                                        <div class="numbers">
+                                            <p class="card-category">Total Women</p>
+                                            <p class="card-title"><?php echo $female; ?><p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer ">
+                                <hr>
 
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats">
                             <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5 col-md-4">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="fa fa-male text-success"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-8">
+                                        <div class="numbers">
+                                            <p class="card-category">Total Men</p>
+                                            <p class="card-title"> <?php echo $male ?><p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer ">
+                                <hr>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5 col-md-4">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="fa fa-plus text-danger"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-8">
+                                        <div class="numbers">
+                                            <p class="card-category">Total Shamas</p>
+                                            <p class="card-title"><?php echo $sh?>
+                                            <p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer ">
+                                <hr>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5 col-md-4">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="fa fa-user text-primary"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-8">
+                                        <div class="numbers">
+                                            <p class="card-category">Total Admins</p>
+                                            <p class="card-title">4
+                                            <p>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                             </div>
                             <div class="card-footer ">
-
+                                <hr>
 
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card ">
-                            <div class="card-header ">
-                                <h5 class="card-title">Available Time Slots</h5>
 
-                            </div>
-                            <div class="card-body ">
-                                <?php
-                                $sql = "select * from slots";
-                                $result = mysqli_query($connect, $sql);
-                                if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        $dayOfWeek = date("l", strtotime($row["slot_date"]));
-                                        $day_in_arabic = "";
-                                        $church_char = "";
-                                        $today = date("Y-m-d");
-                                        if ($dayOfWeek == "Friday") {
-                                            $day_in_arabic = "الجمعه";
-                                        } elseif ($dayOfWeek == "Saturday") {
-                                            $day_in_arabic = "السبت";
-                                        } elseif ($dayOfWeek == "Sunday") {
-                                            $day_in_arabic = "الأحد";
-                                        } elseif ($dayOfWeek == "Monday") {
-                                            $day_in_arabic = "الأثنين";
-                                        } elseif ($dayOfWeek == "Tuesday") {
-                                            $day_in_arabic = "الثلاثاء";
-                                        } elseif ($dayOfWeek == "wednesday") {
-                                            $day_in_arabic = "الأربعاء";
-                                        } elseif ($dayOfWeek == "Thursday") {
-                                            $day_in_arabic = "الخميس";
+
+
+
+
+
+
+
+
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-secondary" align="center" style="text-align: center;">
+                                    <table class="table table-striped" style="text-align: center">
+                                        <tr>
+                                            <td>تاريخ القداس</td>
+                                            <td>توقيت القداس</td>
+                                            <td>العدد المتبقي</td>
+                                            <td>الحالة</td>
+                                        </tr>
+                                        <?php
+                                        $sql_available = "SELECT slots.slot_date as slt_date , slots.slot_id as slt_id from slots where shown = 'Y'  order by slots.slot_date  ";
+                                        $result_available = mysqli_query($connect,$sql_available);
+                                        if($result_available->num_rows > 0)
+                                        {
+                                            while ($row_aval = $result_available->fetch_assoc())
+                                            {
+                                                $slt_id = $row_aval["slt_id"];
+                                                $sql_id_slt = "select number from slots where slot_id = $slt_id";
+                                                $result_id_slt = mysqli_query($connect,$sql_id_slt);
+                                                $row_slt_id = $result_id_slt->fetch_assoc();
+                                                $numbers = $row_slt_id["number"];
+
+
+
+                                                $sql_time_slt = "select slot_time from slots where slot_id = $slt_id";
+                                                $result_time_slt = mysqli_query($connect,$sql_time_slt);
+                                                $row_slt_time = $result_time_slt->fetch_assoc();
+                                                $slot_time = $row_slt_time["slot_time"];
+
+                                                $sql_cnt_slt = "select count(user_slot_count.id) as cnt from user_slot_count where slot_id = $slt_id";
+                                                $result_cnt_slt = mysqli_query($connect,$sql_cnt_slt);
+                                                $row_cnt_time = $result_cnt_slt->fetch_assoc();
+                                                $slot_cnt = $row_cnt_time["cnt"];
+
+                                                if($today < $row_aval["slt_date"]) {
+
+
+                                                    ?>
+                                                    <tr>
+                                                    <td style="font-size: 12px;"><?php echo $row_aval["slt_date"] ?></td>
+                                                    <td><?php echo $slot_time ?></td>
+                                                    <td><?php echo $numbers-$slot_cnt ?></td>
+                                                    <?php
+
+                                                    if ($numbers == $slot_cnt) {
+                                                        ?>
+                                                        <td class="alert alert-danger"><?php echo "مكتمل" ?></td>
+                                                        <?php
+
+                                                    } else {
+                                                        ?>
+                                                        <td class="alert alert-success"><?php echo "يوجد أماكن" ?></td>
+                                                        <?php
+
+                                                    }
+                                                }
+                                                ?>
+
+                                                </tr>
+
+                                                <?php
+//                                echo $row_aval["slt_date"];
+                                            }
+
                                         }
-                                        if ($row["church"] == "L") {
-                                            $church_char = " الكنيسة الكبيرة";
-                                        } elseif ($row["church"] == "S") {
-                                            $church_char = " الكنيسة الصغيرة";
-                                        }
-                                        if ($today < $row["slot_date"]) {
-                                            ?>
+                                        ?>
 
-
-                                            <div class="alert alert-warning" role="alert" style="align-text: center">
-                                                <h5 style="color: #3a283d"> يوم <span
-                                                            style="color: #062c33"><?php echo $day_in_arabic; ?></span>
-                                                    الموافق <span
-                                                            style="color: #062c33"><?php echo $row["slot_date"]; ?></span>
-                                                    الساعة <span
-                                                            style="color: #062c33"><?php echo $row["slot_time"]; ?></span>
-                                                    أقصي عدد للحضور <span
-                                                            style="color: #062c33"><?php echo $row["number"] . " " . "شخص"; ?> </span>
-                                                    سيقام القداس في<span
-                                                            style="color: #062c33"><?php echo $church_char; ?> </span> و
-                                                    يصليه
-                                                    <span style="color: #062c33"><?php echo $row["priest"]; ?> </span>
-                                                </h5>
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-success" role="progressbar"
-                                                         aria-valuenow="40"
-                                                         aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                                                        40% booked (success)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <?php
-                                        }
-
-                                    }
-                                }
-                                ?>
-                            </div>
-                            <div class="card-footer ">
-
-
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
             </div>
             <?php include 'footer.php'; ?>

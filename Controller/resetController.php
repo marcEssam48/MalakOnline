@@ -11,7 +11,7 @@ if(isset($_POST["send"])) {
     $username = $_POST["username"];
 //                echo $username;
 
-    $sql = "Select secqu from users where username = '$username' ";
+    $sql = "Select secqu from users where username = '$username' and user_type='U' ";
     $result = mysqli_query($connect, $sql);
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();

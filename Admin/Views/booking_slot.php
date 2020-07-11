@@ -68,16 +68,26 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']) && $_SESSION['u
                     <form method="post" action="../../Controller/BookingSlotController.php">
 
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
+                            <div class="col-md-4">
+                                <div class="form-group" style="color: white;text-align: center">
+                                    <label>التاريخ</label>
                                     <input class="form-control" name="odate" type="date" required>
-                                    <span class="form-label">تاريخ القداس</span>
+
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
+                            <div class="col-md-4">
+                                <div class="form-group" style="color: white;text-align: center">
+                                    <label>من</label>
                                     <input class="form-control" name="otime" type="time" required>
-                                    <span class="form-label">توقيت القداس</span>
+                                    <span class="form-label">من </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group" style="color: white;text-align: center">
+                                    <label>الي</label>
+                                    <input class="form-control" name="totime" type="time" required>
+                                    <span class="form-label">الي </span>
                                 </div>
                             </div>
                         </div>
@@ -122,6 +132,23 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username']) && $_SESSION['u
                             </div>
                         </div>
                         <br>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="notes" placeholder="الملاحطات" required >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="form-control" required name="shown">
+                                        <option value="" selected hidden>حالة القداس</option>
+                                        <option value="N">الأدمن فقط</option>
+                                        <option value="Y">جميع المستخدمين</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="form-btn">
                             <button name="book" class="submit-btn">إدخال الميعاد</button>
